@@ -1,76 +1,136 @@
 package ecommerce;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Menu {
+import ecommerce.controller.EcommerceController;
+import ecommerce.model.Ecommerce;
+import ecommerce.model.ProdutoEntrega;
+import ecommerce.model.ProdutoRetirada;
+import util.Cores;
 
-	public static void main(String[] args) {
+public class Menu
+{
 
-				Scanner leia = new Scanner(System.in);
+	public static void main(String[] args)
+	{
+		EcommerceController ecommerce = new EcommerceController();
 
-				int opcao;
+		// Teste da Classe ecommerce
+		// Ecommerce ec1 = new ProdutoRetirada (708,2, "Stephanie Goulart", "Sexta");
+		// ec1.visualizar();
 
-				while (true) {
+		// Ecommerce ec2 = new ProdutoEntrega (709,1, "Renan Magalhães",5);
+		// ec2.visualizar();
 
-					System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************");
-					System.out.println("                                                     ");
-					System.out.println(Cores.TEXT_YELLOW_BOLD + "                     E-COMMERCE                      ");
-					System.out.println("                                                     ");
-					System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************");
-					System.out.println("                                                     ");
-					System.out.println(Cores.TEXT_BLUE_BOLD + "            1 - Listar todo Mundo                    ");
-					System.out.println("            2 - Listar por ID                        ");
-					System.out.println("            3 - Cadastrar                            ");
-					System.out.println("            4 - Atualizar                            ");
-					System.out.println("            5 - Deletar                              ");
-					System.out.println("                                                     ");
-					System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************");
-					System.out.println(Cores.TEXT_BLUE_BOLD + "                 \nEscolha a opção desejada:                            ");
-					System.out.println("                                                     " + Cores.TEXT_RESET);
+		Scanner leia = new Scanner(System.in);
+		String cliente, dia;		
+		int identificador, tipo, prazo;
+		
+		EcommerceController canetaController = new EcommerceController();
+		
+		int opcao;
 
-					opcao = leia.nextInt();
+		while (true)
+		{
 
-					if (opcao == 6) {
-						System.out.println("\nE-COMMERCE - Seja Bem vindo");
-						sobre();
-		                 leia.close();
-						System.exit(0);
-					}
+			System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************");
+			System.out.println(Cores.TEXT_YELLOW_BOLD + "\n             E-COMMERCE Logistics                  \n");
+			System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************\n");
+			System.out.println(Cores.TEXT_YELLOW + "\t\t 1 - Listar todos os produtos");
+			System.out.println("\t 2 - Cadastrar");
+			System.out.println(Cores.TEXT_GREEN + "\t\t 3 - Atualizar");
+			System.out.println(Cores.TEXT_RED + "\t\t 4 - Deletar");
+			System.out.println(Cores.TEXT_WHITE + "\t\t 5 - Sair\n");
+			System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************");
+			System.out.println(Cores.TEXT_BLUE_BOLD + "\n          Escolha a opção desejada:" + Cores.TEXT_RESET);
 
-					switch (opcao) {
-						case 1:
-							System.out.println("Listar todo Mundo\n\n");
-
-							break;
-						case 2:
-							System.out.println("Listar por ID\n\n");
-
-							break;
-						case 3:
-							System.out.println("Cadastrar\n\n");
-
-							break;
-						case 4:
-							System.out.println("Atualizar\n\n");
-
-							break;
-						case 5:
-							System.out.println("Deletar\n\n");
-
-							break;
-
-						default:
-							System.out.println("\nOpção Inválida!\n");
-							break;
-					}
-				}
+			try {
+				opcao = leia.nextInt();
+				leia.nextLine();
+			} catch (InputMismatchException e)
+			{
+				System.out.println("\nDigite valores inteiros!");
+				leia.nextLine();
+				opcao = 0;
 			}
-		    
-			public static void sobre() {
-				System.out.println("\n*********************************************************");
-				System.out.println("Projeto Desenvolvido por: Lucas Vinicius Gomes Silva ");
-				System.out.println("lucas.silva@genstudents.org");
-				System.out.println("github.com/luvigom");
-				System.out.println("*********************************************************");
+
+			if (opcao == 5)
+			{
+				System.out.println(Cores.TEXT_YELLOW_BOLD + "\n   E-COMMERCE - Fim do Programa, Muito Obrigado" + Cores.TEXT_RESET);
+				sobre();
+				leia.close();
+				System.exit(0);
+			}
+
+			switch (opcao)
+			{
+				case 1:
+					canetaController.listarTodos();;
+					keyPress();
+					break;
+	
+				case 2:
+					System.out.println("Cadastrar\n");
+					
+					System.out.println("Digite o nome do Cliente: ");
+					cliente = leia.nextLine();
+					
+					System.out.println("Digite a forma de acesso ao Produto: [1] - Entrega   [2] - Retirada");
+					tipo = leia.nextInt();
+					leia.nextLine();
+					switch(tipo)
+					{
+						case 1 ->
+						{
+							identificador = canetaController.genNumero();
+							canetaController.Cadastrar(new ProdutoEntrega(identificador, tipo, cliente));
+							break ;
+						}
+						case 2 ->
+						{
+							identificador = canetaController.genNumero();
+							
+							System.out.println("Digite o melhor dia para a retirada do produto (Seg ~ Sex)");
+							dia = leia.nextLine();
+							canetaController.Cadastrar(new ProdutoRetirada(identificador, tipo, cliente, dia));
+							break ;
+						}						
+					}
+					keyPress();
+					break;
+	
+				case 3:
+					System.out.println("Atualizar\n\n");
+					keyPress();
+					break;
+	
+				case 4:
+					System.out.println("Digite o número do produto que deseja deletar: ");
+					identificador = leia.nextInt()
+;					canetaController.Deletar(identificador);
+					keyPress();
+					break;
+	
+				default:
+					System.out.println("\nOpção Inválida!\n");
+					keyPress();
+					break;
 			}
 		}
+	}
+
+	private static void keyPress()
+	{
+
+	}
+
+	public static void sobre()
+	{
+		System.out.println(Cores.TEXT_PURPLE_BOLD + "\n*****************************************************" + Cores.TEXT_RESET);
+		System.out.println(Cores.TEXT_GREEN + "Projeto Desenvolvido por: Lucas Vinicius Gomes Silva ");
+		System.out.println(Cores.TEXT_GREEN + "lucas.silva@genstudents.org");
+		System.out.println(Cores.TEXT_GREEN + "github.com/luvigom" + Cores.TEXT_RESET);
+		System.out.println(Cores.TEXT_PURPLE_BOLD + "*****************************************************" + Cores.TEXT_RESET);
+	}
+}
