@@ -1,28 +1,25 @@
 package ecommerce.model;
 
-import ecommerce.Cores;
+import util.Cores;
 
-public class ProdutoEntrega extends ecommerce {
+public class ProdutoEntrega extends Ecommerce {
 
-	private int prazo;
+	private final int prazo = 30;
 
-	public ProdutoEntrega(int identificador, int tipo, String titular, int prazo) {
+	public ProdutoEntrega(int identificador, int tipo, String titular)
+	{
 		super(identificador, tipo, titular);
-		this.prazo = prazo;
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getPrazo() {
 		return prazo;
 	}
 
-	public void setPrazo(int prazo) {
-		this.prazo = prazo;
-	}
 
-	public void visualizar() {
+	public void visualizar()
+	{
 		super.visualizar();
-		System.out.println(Cores.TEXT_GREEN + "         Prazo de entrega: " + this.prazo + "\n" + Cores.TEXT_RESET );
-
+		System.out.println("         Tipo de Envio: Entrega");
+		System.out.println(Cores.TEXT_GREEN + "         Prazo de entrega: " + this.prazo + " dias.\n" + Cores.TEXT_RESET );
 	}
 }

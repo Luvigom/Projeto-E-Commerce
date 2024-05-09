@@ -1,20 +1,21 @@
 package ecommerce.model;
 
-import ecommerce.Cores;
+import util.Cores;
 
-public abstract class ecommerce {
-
+public abstract class Ecommerce
+{
+	
 	private int identificador;
 	private int tipo;
 	private String titular;
 
-	public ecommerce(int identificador, int tipo, String titular) {
+	public Ecommerce(int identificador, int tipo, String titular)
+	{
 		this.identificador = identificador;
 		this.tipo = tipo;
 		this.titular = titular;
-
 	}
-
+	
 	public int getIdentificador() {
 		return identificador;
 	}
@@ -39,27 +40,12 @@ public abstract class ecommerce {
 		this.titular = titular;
 	}
 
-	public void visualizar() {
-
-		String tipo = "";
-
-		switch (this.tipo) {
-		case 1:
-			tipo = "Produto Entrega";
-			break;
-		case 2:
-			tipo = "Produto Retirada";
-			break;
-		}
-
-		System.out.println(
-				Cores.TEXT_RED + "\n\n*****************************************************" + Cores.TEXT_RESET);
+	public void visualizar() 
+	{
+		System.out.println(Cores.TEXT_RED + "\n\n*****************************************************" + Cores.TEXT_RESET);
 		System.out.println(Cores.TEXT_YELLOW_BOLD + "                     Logistica:" + Cores.TEXT_RESET);
-		System.out
-				.println(Cores.TEXT_RED + "*****************************************************\n" + Cores.TEXT_RESET);
+		System.out.println(Cores.TEXT_RED + "*****************************************************\n" + Cores.TEXT_RESET);
 		System.out.println(Cores.TEXT_GREEN + "         Identificador: " + this.identificador);
-		System.out.println("         Tipo de Envio: " + tipo);
 		System.out.println("         Titular: " + this.titular + Cores.TEXT_RESET);
 	}
-
 }

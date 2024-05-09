@@ -1,4 +1,4 @@
-package ecommerce;
+package util;
 
 public class Cores {
 
