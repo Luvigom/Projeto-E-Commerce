@@ -39,7 +39,17 @@ public class EcommerceController implements EcommerceRepository
 	}
 
 	@Override
-	public void Atualizar(Ecommerce ecommerce) {
+	public void Atualizar(Ecommerce ecommerce) 
+	{
+		var buscaEcommerce = buscarNaCollection(ecommerce.getIdentificador());
+		
+		if (buscaEcommerce != null) 
+		{
+			tipos.set(tipos.indexOf(buscaEcommerce), ecommerce);
+			System.out.println("\nO produto com ID: " + ecommerce.getIdentificador() + " foi atualizada com sucesso!");
+		} 
+		else
+			System.out.println("\nO produto com ID: " + ecommerce.getIdentificador() + " não foi encontrada!");
 		// TODO Auto-generated method stub
 		
 	}

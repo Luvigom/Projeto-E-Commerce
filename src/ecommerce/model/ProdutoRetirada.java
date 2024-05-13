@@ -24,7 +24,7 @@ public class ProdutoRetirada extends Ecommerce
 	public void visualizar()
 	{
 		super.visualizar();
-		System.out.println("         Tipo de Envio: Retirada");
+		System.out.println(Cores.TEXT_GREEN + "         Tipo de Envio: Retirada");
 		System.out.println(Cores.TEXT_GREEN + "         Dia de Retirada: " + this.dia + Cores.TEXT_RESET);
 	}
 }

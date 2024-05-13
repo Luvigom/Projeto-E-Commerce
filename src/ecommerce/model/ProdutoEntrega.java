@@ -19,7 +19,7 @@ public class ProdutoEntrega extends Ecommerce {
 	public void visualizar()
 	{
 		super.visualizar();
-		System.out.println("         Tipo de Envio: Entrega");
+		System.out.println(Cores.TEXT_GREEN + "         Tipo de Envio: Entrega");
 		System.out.println(Cores.TEXT_GREEN + "         Prazo de entrega: " + this.prazo + " dias.\n" + Cores.TEXT_RESET );
 	}
 }

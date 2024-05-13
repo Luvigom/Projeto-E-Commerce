@@ -20,11 +20,11 @@ public class Menu
 		// Ecommerce ec1 = new ProdutoRetirada (708,2, "Stephanie Goulart", "Sexta");
 		// ec1.visualizar();
 
-		// Ecommerce ec2 = new ProdutoEntrega (709,1, "Renan Magalhães",5);
+		// Ecommerce ec2 = new ProdutoEntrega (709,1, "Renan Magalhães", "30 dias");
 		// ec2.visualizar();
 
 		Scanner leia = new Scanner(System.in);
-		String cliente, dia;		
+		String cliente = null, dia;		
 		int identificador, tipo, prazo;
 		
 		EcommerceController canetaController = new EcommerceController();
@@ -102,8 +102,39 @@ public class Menu
 	
 				case 3:
 					System.out.println("Atualizar\n\n");
+
+					System.out.println("Digite o Identificador que será atualizado [Somente números]: ");
+					identificador = leia.nextInt();
+					
+					var buscaEcommerce = ecommerce.buscarNaCollection(identificador);
+
+					if (buscaEcommerce != null) {
+
+						System.out.println("Digite a forma de acesso ao Produto: [1] - Entrega   [2] - Retirada");
+						tipo = leia.nextInt();
+						leia.nextLine();
+						switch(tipo)
+						{
+							case 1 ->
+							{
+								identificador = canetaController.genNumero();
+								canetaController.Atualizar(new ProdutoEntrega(identificador, tipo, cliente));
+								break ;
+							}
+							case 2 ->
+							{
+								identificador = canetaController.genNumero();
+								
+								System.out.println("Digite o melhor dia para a retirada do produto (Seg ~ Sex)");
+								dia = leia.nextLine();
+								canetaController.Atualizar(new ProdutoRetirada(identificador, tipo, cliente, dia));
+								break ;
+							}						
+						}
+					} else
+						System.out.println("\nO ID desse produto não foi encontrado!");
+				
 					keyPress();
-					break;
 	
 				case 4:
 					System.out.println("Digite o número do produto que deseja deletar: ");
